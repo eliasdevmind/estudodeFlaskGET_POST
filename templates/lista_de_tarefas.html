@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html>
-    
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>Lista de Tarefas</title>
 </head>
+
 <body>
     <h1>Minha Lista de Tarefas</h1>
     <ul>
         {% for task in tasks %}
-            <li>{{ task }}</li>
+            <li>
+                <input type="checkbox" name="task_completed" value="{{ loop.index0 }}" id="task{{ loop.index0 }}" {% if task.completed %}checked{% endif %}>
+                <label for="task{{ loop.index0 }}" {% if task.completed %}style="text-decoration: line-through;"{% endif %}>
+                    {{ task.name }}
+                </label>
+                {% if task.completed %}<span class="concluida">Concluída</span>{% endif %}
+            </li>
         {% endfor %}
     </ul>
+    
     <a href="/adicionar-tarefa">Adicionar Tarefa</a>
-</body>
+    
 </html>

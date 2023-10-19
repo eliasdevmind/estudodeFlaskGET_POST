@@ -36,8 +36,13 @@ input[type="text"] {
 
 button {
     padding: 5px 10px;
-    background-color: #007BFF;
+    background-color: #00ff66;
     color: #fff;
     border: none;
     cursor: pointer;
+}
+.concluida {
+    color: green; /* Change the color to your preference */
+    font-weight: bold;
+    margin-left: 10px; /* Adjust the margin as needed */
 }
