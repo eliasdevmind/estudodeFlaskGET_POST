@@ -7,21 +7,22 @@
 # Instala o Flask
 # pip install Flask
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
+tasks = []
 
-# Dicionário para armazenar os dados enviados
-data = {"nome": "", "mensagem": ""}
+@app.route('/')
+def lista_de_tarefas():
+    return render_template('lista_de_tarefas.html', tasks=tasks)
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+@app.route('/adicionar-tarefa', methods=['GET', 'POST'])
+def adicionar_tarefa():
     if request.method == 'POST':
-        # Se o método for POST, atualize os dados com os valores do formulário
-        data['nome'] = request.form['nome']
-        data['mensagem'] = request.form['mensagem']
-        return redirect(url_for('index'))
-    return render_template('index.html', data=data)
+        nova_tarefa = request.form.get('nova_tarefa')
+        if nova_tarefa:
+            tasks.append(nova_tarefa)
+    return render_template('adicionar_tarefa.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
