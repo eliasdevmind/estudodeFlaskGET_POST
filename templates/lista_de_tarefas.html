@@ -12,15 +12,26 @@
     <ul>
         {% for task in tasks %}
             <li>
-                <input type="checkbox" name="task_completed" value="{{ loop.index0 }}" id="task{{ loop.index0 }}" {% if task.completed %}checked{% endif %}>
+                <input type="checkbox" name="task_completed" value="{{ loop.index0 }}" id="task{{ loop.index0 }}" {% if task.completed %}checked{% endif %} onchange="updateTaskStatus(this)">
                 <label for="task{{ loop.index0 }}" {% if task.completed %}style="text-decoration: line-through;"{% endif %}>
                     {{ task.name }}
                 </label>
-                {% if task.completed %}<span class="concluida">Concluída</span>{% endif %}
             </li>
         {% endfor %}
     </ul>
-    
     <a href="/adicionar-tarefa">Adicionar Tarefa</a>
-    
+
+    <script>
+        function updateTaskStatus(checkbox) {
+            const label = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                label.style.textDecoration = "line-through";
+                label.innerHTML += ' - Concluído';
+            } else {
+                label.style.textDecoration = "none";
+                label.innerHTML = label.innerHTML.replace(' - Concluído', '');
+            }
+        }
+    </script>
+</body>
 </html>
